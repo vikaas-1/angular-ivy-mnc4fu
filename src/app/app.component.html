@@ -1,4 +1,54 @@
-<hello name="{{ name }}"></hello>
 <p>
-  Start editing to see some magic happen :)
+  Candidates<br />
+  <input type="checkbox" />Male <input type="checkbox" />Female
+  <input type="text" [(ngModel)]="searchText" />What are you looking for ?
 </p>
+<div class="container">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Email</th>
+        <th>Gender</th>
+      </tr>
+    </thead>
+    <body>
+      <tr
+        *ngFor="
+          let employee of employeeList
+            | grdFilter
+              : {
+                  first_name: searchText,
+                  last_name: searchText,
+                  email: searchText
+                };
+          let i = index
+        "
+      >
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.first_name }}</td>
+        <td>{{ employee.last_name }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.gender }}</td>
+      </tr>
+    </body>
+  </table>
+</div>
+<p>Add New Candidate</p>
+<form action="">
+  <div class="container">
+    FirstName
+    <input type="text" name="fname" [(ngModel)]="newItem.fname" />LastName
+    <input type="text" name="lname" /> Email<input
+      type="text"
+      name="email"
+      [(ngModel)]="newItem.email"
+    />
+    <br />
+    <input type="radio" name="female" [(ngModel)]="newItem.female" />Female
+    <input type="radio" name="male" [(ngModel)]="newItem.male" />Male
+    <input type="submit" value="Add" (click)="addEmployee()" />
+  </div>
+</form>
